@@ -1,30 +1,31 @@
 package br.edu.ifpb.report.controller;
 
+import br.edu.ifpb.fileconvertion.AbstractConvertion;
+import br.edu.ifpb.report.database.AbstractConnectionDatabase;
 import br.edu.ifpb.report.database.PostgreSQLDatabaseConnector;
 
-public class ExpenseReport {
+public class ExpenseReport extends AbstractReport{
 
-    private PostgreSQLDatabaseConnector connector = new PostgreSQLDatabaseConnector();
-
-    public void generate() {
-        createDatabaseConnection();
-        executePostgresQuery();
-        convertToXLS();
-    }
-
+	private AbstractConnectionDatabase connector;
+	private String query;
+	private AbstractConvertion typefile;
+	
+	public ExpenseReport(AbstractConnectionDatabase connector, String query, AbstractConvertion typefile) {
+		this.connector = connector;
+		this.query = query;
+		this.typefile = typefile;
+	}
+	
     public void createDatabaseConnection() {
         System.out.println("Creating Database Connection...");
-        connector.createConnection();
+        connector.openConnection();
     }
 
-    public void executePostgresQuery() {
-        System.out.println("Executing Postgres Query...");
-        String query = "SELECT * FROM expenses";
-        connector.runQuery(query);
+    public void executeDatabaseQuery() {
+        connector.runQuery(this.query);
     }
 
-    public void convertToXLS() {
-        System.out.println("Converting To XLS...");
+    public void convertToTypeFile() {
+    	typefile.convert();
     }
-
 }

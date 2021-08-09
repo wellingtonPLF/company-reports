@@ -1,13 +1,12 @@
 package br.edu.ifpb.report.database;
 
-public class MysqlDatabaseConnector {
+public class MysqlDatabaseConnector extends AbstractConnectionDatabase{
 
-    public void openConnection() {
-        System.out.println("Create mysql connetion");
+	public void connection(){
+		System.out.println("Create mysql connetion");
+	}
+
+    public void query(String query){
+    	System.out.println("Executing MySQL Query...");
     }
-
-    public void executeQuery(String query) {
-        System.out.println("Run SQL query");
-    }
-
 }
